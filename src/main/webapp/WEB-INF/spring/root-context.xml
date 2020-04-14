@@ -2,7 +2,59 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+
+	<bean class="com.google.s3.robot.Robot" id="r1">
+		<property name="leftArm" ref="leftArm"></property>
+		<property name="rightArm" ref="rightArm"></property>
+	</bean>
+	
+	<bean class="com.google.s3.robot.Robot" id="r2">
+		<constructor-arg name="leftArm" ref="leftArm"></constructor-arg>
+		<constructor-arg name="rightArm" ref="rightArm"></constructor-arg>
+	</bean>
+	
+	
+	
+	<bean id="leftArm" class="com.google.s3.robot.LeftArm">
+
+		<property name="name" value="iu" ></property>
+
+		<property name="size" value="20" ></property>
+
+	</bean>
+
+
+	
+	<bean id="rightArm" class="com.google.s3.robot.RightArm">
+
+		<!--<constructor-arg name="color" value="red"></constructor-arg><constructor-arg 
+			name="power" value="30"></constructor-arg><constructor-arg index="0" value="20"></constructor-arg><constructor-arg 
+			index="1" value="blue"></constructor-arg> -->
+
+
+		<constructor-arg value="20" type="java.lang.Integer" />
+
+		<constructor-arg value="red" type="java.lang.String" />
+
+	</bean>
+	
+	
+	
+		<!-- MemberDAO memberDAO = new MemberDAO() -->
+		<bean class="com.google.s3.member.MemberDAO" id="memberDAO"></bean>
+		<!-- 이렇게 넣어놓을 테니까 객체를 하나 만들어주세요 -->
+
+		<!-- MemberService memberService = new MemberService() -->
+		<bean class="com.google.s3.member.MemberService" id="memberService">
+
+			<!-- memberService.setMemberDAO(memberDAO) 의존성 주입 방식 중에 SETTER 이용한 방식 -->
+			<property name="memberDAO" ref="memberDAO"></property><!-- service 안에 setter를 
+				만들어주세요 -->
+
+		</bean>
+
+
+
 </beans>
